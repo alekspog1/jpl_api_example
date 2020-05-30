@@ -17,15 +17,15 @@ Scenario Outline: Check that all fields are presented
     Then I should see the field: <field>
 
     Examples:
-        | field  |
-        | des |
+        | field     |
+        | des       |
         | orbit_id  |
-        | jd  |
-        | cd  |
-        | dist2  |
+        | jd        |
+        | cd        |
+        | dist      |
         | dist_min  |
         | dist_max  |
-        | v_rel  |
-        | v_inf  |
-        | t_sigma_f  |
-        | h  |
+        | v_rel     |
+        | v_inf     |
+        | t_sigma_f |
+        | h         |
