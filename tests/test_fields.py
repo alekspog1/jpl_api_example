@@ -41,3 +41,17 @@ def check_api_version(request_the_main_page, version):
 @then("I should see some data")
 def check_that_data_exist(request_the_main_page):
     assert len(request_the_main_page.json()["data"]) > 0
+
+
+@scenario(
+    './main_url.feature',
+    'Check that all fields are presented',
+    example_converters=dict(field=str)
+)
+def test_check_the_field():
+    pass
+
+
+@then("I should see the field: <field>")
+def check_field(request_the_main_page, field):
+    assert field in request_the_main_page.json()["fields"]

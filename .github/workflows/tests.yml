@@ -31,4 +31,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --gherkin-terminal-reporter
+        pytest --gherkin-terminal-reporter --html=report.html
+    - name: Upload html report
+      uses: actions/upload-artifact@v1
+      with:
+        name: report
+        path: report.html
