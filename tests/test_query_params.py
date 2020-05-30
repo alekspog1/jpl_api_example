@@ -25,7 +25,7 @@ def should_see_the_error_and_error_details(request_the_body, status_code, messag
 
 @scenario(
     './query_params.feature',
-    'We can check PHA objects for the next month'
+    'We can check PHA objects for the next two months'
 )
 def test_pha_filter():
     pass
