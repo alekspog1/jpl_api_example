@@ -1,3 +1,4 @@
+allure-pytest-bdd==2.8.16
 pytest==5.4.2
 pytest-bdd==3.3.0
 requests==2.23.0
