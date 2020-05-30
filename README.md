@@ -16,8 +16,8 @@ it allows to use all PyTest runner features,
 # Demo report
 There couple of tests in this repo. You can just run all tests and
 see the results executing only two commands in your commandline. 
-You don't need any software installation locally because tests
-will be run in docker containers. Be sure that you have docker software installed on your laptop
+You don't need any software installation locally except Docker software because tests
+will be run in docker containers. Be sure that you have docker software installed on your laptop.
 
 1. Move to root of the current repository
 2. Run tests with Makefile
@@ -29,7 +29,7 @@ will be run in docker containers. Be sure that you have docker software installe
 `make serve-report`
 
 4. Interactive reports will be accessible on the url http://localhost:4040/index.html.
-Now we can see that API works as expect:
+Now we can see that API works as expected:
 
 ![Normal flight](./blob/all_tests_passed.png)
 
@@ -81,13 +81,43 @@ They also can use example scenarios from our repo https://github.com/alekspog/jp
 3. Now QA specialist is in the game. Firstly QA engineer can generate test code sample 
 from feature file using the command line:
 `pytest-bdd generate ./{feature_name}.feature > tests/test_{feature_name}.py`
-4. Then QA implement the test functions for new scenarios using documentation 
+4. Then QA engineer implements the test functions for new scenarios using documentation 
 from https://github.com/pytest-dev/pytest-bdd
-5. QA checks the implemented tests running 
+5. Finally QA engineer checks the implemented tests and commit their work result:
 
 `pytest -v --gherkin-terminal-reporter`
 
-### Instructions for QA engineers
+Example of natural language test:
+```.gherkin
+Scenario: Check the API version
+    Given As a user I request the main page
+    Then I should see the API version 1.1
+```
+
+Example of test implementation with python:
+
+```python
+from pytest_bdd import scenario, given, then, parsers
+
+JPL_URL_API = 'https://ssd-api.jpl.nasa.gov/cad.api'
+
+
+@scenario("./main_url.feature", "Check the API version")
+def test_api_version():
+    pass
+
+
+@given("As a user I request the main page")
+def request_the_main_page(client):
+    return client.get(JPL_URL_API)
+
+
+@then(parsers.parse('I should see the API version {version}'))
+def check_api_version(request_the_main_page, version):
+    assert request_the_main_page.json()["signature"]["version"] == version
+```
+
+### Detailed instructions for the QA engineers
 1. Clone the repo `git clone https://github.com/alekspog/jpl_api_example.git`
 2. Be sure you have python3.* installed on your laptop.
 Create python virtual environment `python3 -m venv ./my_env`
@@ -102,7 +132,7 @@ python -m pip install -r requirements.txt
 `pytest -v --gherkin-terminal-reporter`
 
 ## Local visual reports
-We use Allure framework to get visual reports. You will need install allure-cli to use this feature.
+We use Allure framework to get visual reports. You will need to install allure-cli to use this feature.
 
 ### Install allure
 #### Linux
@@ -126,7 +156,7 @@ pytest -v --gherkin-terminal-reporter --alluredir=/tmp/allure_results
 `allure serve /tmp/allure_results`
 
 The report will open in the browser automatically.
-If you change the project files run tests and report server again:
+If you change the project files you should run tests and report server again:
 
 ```
 rm -rf /tmp/allure_results
