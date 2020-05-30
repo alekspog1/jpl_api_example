@@ -31,11 +31,11 @@ will be run in docker containers. Be sure that you have docker software installe
 4. Interactive reports will be accessible on the url http://localhost:4040/index.html.
 Now we can see that API works as expect:
 
-![Normal flight](https://github.com/alekspog/jpl_api_example/blob/all_tests_passed.png)
+![Normal flight](/blob/all_tests_passed.png)
 
 If one of the test will become broken you will see which specific step in the scenario led to the error:
 
-![Houston we have a problem](https://github.com/alekspog/jpl_api_example/blob/something_wrong.png)
+![Houston we have a problem](/blob/something_wrong.png)
 
 ## Run tests in the docker containers
 
