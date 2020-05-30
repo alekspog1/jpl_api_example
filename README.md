@@ -23,6 +23,7 @@ will be run in docker containers. Be sure that you have docker software installe
 2. Run tests with Makefile
 
 `make build-and-run-tests`
+
 3. Run the Allure server in docker container
 
 `make serve-report`
@@ -51,14 +52,15 @@ Build and run tests with one command:
 `make build-and-run-tests`
 
 We use Allure framework for generating and serving html reports.
-Reports are handling in docker container, thanks to https://github.com/fescobar/allure-docker-service
-Run Allure server to get pretty report. This command run the allure-docker-service detached. It can be 
-stopped manually when we will not need this service:
+Reports are handling in docker container, thanks to https://github.com/fescobar/allure-docker-service.
+Run Allure server to get pretty report. Next command run the allure-docker-service detached. It can be 
+stopped manually when we will not need this service more:
+
 `make serve-report`
 
 Report will be accessible in your browser on http://localhost:4040/index.html
 
-Just change or add tests and run tests in container again:
+Just change or add tests and run tests in the container again:
 
 `make build-and-run-tests`
 
@@ -66,20 +68,24 @@ You will see new tests results on http://localhost:4040/index.html
 
 ## Developing tests and run tests locally
 When we are writing and debugging tests it is easier to 
-run all services on your laptop or PC
+run all services on your laptop or PC.
 
 ### BDD approach
 Business analysts, product managers or people from the business side can write tests in natural language.
-The example flow for analyst:
+The example work flow for analyst and QA engineer:
 1. Analyst clone the repo https://github.com/alekspog/jpl_api_example/ to their laptop.
-2. Analyst create new {feature_name}.feature file in the /tests folder and 
+2. Analyst creates new {feature_name}.feature file in the /tests folder and 
 describe new feature and its scenarios in the file. They should use the subset of Gherkin language
 with "given, when, then" syntax. Check the https://cucumber.io/docs/gherkin/reference/.
-3. Then QA specialist can generate test code sample from this file from the command line:
-pytest-bdd generate ./{feature_name}.feature > tests/test_{feature_name}.py
-4. QA implement the test functions for new scenarios using documentation 
+They also can use example scenarios from our repo https://github.com/alekspog/jpl_api_example/blob/master/tests/main_url.feature
+3. Now QA specialist is in the game. Firstly QA engineer can generate test code sample 
+from feature file using the command line:
+`pytest-bdd generate ./{feature_name}.feature > tests/test_{feature_name}.py`
+4. Then QA implement the test functions for new scenarios using documentation 
 from https://github.com/pytest-dev/pytest-bdd
-5. QA check the tests health running pytest -v --gherkin-terminal-reporter
+5. QA checks the implemented tests running 
+
+`pytest -v --gherkin-terminal-reporter`
 
 ### Instructions for QA engineers
 1. Clone the repo `git clone https://github.com/alekspog/jpl_api_example.git`
@@ -120,7 +126,7 @@ pytest -v --gherkin-terminal-reporter --alluredir=/tmp/allure_results
 `allure serve /tmp/allure_results`
 
 The report will open in the browser automatically.
-If you change the project files run tests and report again:
+If you change the project files run tests and report server again:
 
 ```
 rm -rf /tmp/allure_results
