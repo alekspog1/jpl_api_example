@@ -1,25 +1,38 @@
-import json
+from pytest_bdd import scenario, given, then, parsers
+
+JPL_URL_API = 'https://ssd-api.jpl.nasa.gov/cad.api'
 
 
-class TestAPIMainUrl:
-    def test_main_api_url_should_response_200(self, client):
-        res = client.get('https://ssd-api.jpl.nasa.gov/cad.api')
-        assert res.status_code == 200
+@scenario("main_url.feature", "Check that url exist")
+def test_main_url_exist():
+    pass
 
 
-class TestCheckAPIVersion:
-    def test_check_api_version(self, client):
-        res = client.get('https://ssd-api.jpl.nasa.gov/cad.api')
-        assert res.json().get("signature").get("version") == "1.1"
+@given("As a user I request the main page")
+def request_the_main_page(client):
+    return client.get(JPL_URL_API)
 
 
-class TestAPIFields:
-    def test_all_fields_are_existed(self, client):
-        fields_list = ["des", "orbit_id", "jd", "cd", "dist", "dist_min", "dist_max"]
-        res = client.get('https://ssd-api.jpl.nasa.gov/cad.api')
-        fields = json.loads(res.text)["fields"]
-        # to-do: we should check all fields, not fail the first one
-        for field in fields:
-            assert field in fields_list
+@then("I should get the 200 status code")
+def check_status_code(request_the_main_page):
+    assert request_the_main_page.status_code == 200
 
 
+@then("I should see some data")
+def check_data_exist(request_the_main_page):
+    assert len(request_the_main_page.json()["data"]) > 0
+
+
+@scenario("main_url.feature", "Check the API version")
+def test_api_version():
+    pass
+
+
+@then(parsers.parse('I should see the API version {version}'))
+def check_status_code(request_the_main_page, version):
+    assert request_the_main_page.json()["signature"]["version"] == version
+
+
+@then("I should see some data")
+def check_data_exist(request_the_main_page):
+    assert len(request_the_main_page.json()["data"]) > 0
