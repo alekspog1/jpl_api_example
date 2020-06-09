@@ -45,7 +45,7 @@ def check_that_data_exist(request_the_main_page):
 
 @scenario(
     './main_url.feature',
-    'Check that all fields are presented',
+    'Check that specific field is presented',
     example_converters=dict(field=str)
 )
 def test_check_the_field():

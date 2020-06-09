@@ -12,7 +12,7 @@ Scenario: Check the API version
 
     # It is an example for parametrization tests but honestly it's not good data organization in practice
     # It will be better to make one response, get fields list and compare it with required list
-Scenario Outline: Check that all fields are presented
+Scenario Outline: Check that specific field is presented
     Given As a user I request the main page
     Then I should see the field: <field>
 
